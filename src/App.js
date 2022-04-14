@@ -1,7 +1,32 @@
 
+import { useReducer } from 'react';
 import './App.css';
+import Digit from './Components/Digits/Digit';
+
+export const ACTIONS={
+  ADD_DIGIT:'add-digit',
+  CLEAR:'clear',
+  DELETE_DIGIT:'delete-digit',
+  CHOOSE_OPERATION:'choose-operation',
+  EVALUATION:'evaluation'
+}
+const reducer=(state,{type,payload})=>{
+
+  switch (type) {
+    case ACTIONS.ADD_DIGIT:
+      return {...state,currenOperend:`${state.currenOperend||""}${payload.digit}`}
+
+    default:
+      return state;
+      
+     
+  
+  }
+
+}
 
 function App() {
+  const [{previousOperend,currenOperend,operation},dispatch]=useReducer(reducer,{});
   return (
    <>
 
@@ -12,29 +37,29 @@ function App() {
          <div className="grid-container">
            <div className="output">
              <div className="previous-operend">
-               12345
+               {previousOperend}{operation}
              </div>
              <div className="current-operend">
-               6789
+               {currenOperend}
              </div>
            </div>
            <button className='span-2'>AC</button>
              <button>DEL</button>
              <button>÷</button>
-             <button>1</button>
-             <button>2</button>
-             <button>3</button>
+             <Digit digit='1' dispatch={dispatch}></Digit>
+             <Digit digit='2' dispatch={dispatch}></Digit>
+             <Digit digit='3' dispatch={dispatch}></Digit>
              <button>+</button>
-             <button>4</button>
-             <button>5</button>
-             <button>6</button>
+             <Digit digit='4' dispatch={dispatch}></Digit>
+             <Digit digit='5' dispatch={dispatch}></Digit>
+             <Digit digit='6' dispatch={dispatch}></Digit>
              <button>-</button>
-             <button>7</button>
-             <button>8</button>
-             <button>9</button>
+             <Digit digit='7' dispatch={dispatch}></Digit>
+             <Digit digit='8' dispatch={dispatch}></Digit>
+             <Digit digit='9' dispatch={dispatch}></Digit>
              <button>*</button>
              <button>.</button>
-             <button>0</button>
+             <Digit digit='0' dispatch={dispatch}></Digit>
              <button className='span-2'>=</button>     
          </div>
          
